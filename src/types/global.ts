@@ -4,3 +4,5 @@ export interface IPaginationResponse<T> {
   total_pages: number;
   total_results: number;
 }
+
+export type TDate = string;
