@@ -17,3 +17,20 @@ export async function getMovies({ page }: { page: number }) {
 
   return res.data;
 }
+
+/**
+ * [react-query] 영화 목록 InfinityScroll
+ */
+export const useGetMovies = () => {
+  const res = useInfiniteQuery(['getMovies'], ({ pageParam = 1 }) => getMovies({ page: pageParam }), {
+    getNextPageParam: (lastPage) => {
+      const nextPage = lastPage.page + 1;
+      return lastPage.results.length !== 0 ? nextPage : undefined;
+    },
+  });
+  const { data } = res;
+
+  const contents = data ? data.pages.map((page) => page.results).reduce((mergedList, currentlist) => [...mergedList, ...(currentlist || [])], []) : [];
+
+  return { ...res, contents };
+};
