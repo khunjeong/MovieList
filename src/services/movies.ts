@@ -34,3 +34,22 @@ export const useGetMovies = () => {
 
   return { ...res, contents };
 };
+
+/**
+ * [API] GET 영화 상세 불러오기
+ * @param { number } id 영화 id
+ */
+export async function getMoviesDetail({ id }: { id: number }) {
+  try {
+    const res = await Axios.get<IMovieModel>(`${process.env.NEXT_PUBLIC_API_MOVIE_URL}/3/movie/${id}`, {
+      params: {
+        api_key: process.env.NEXT_PUBLIC_MOVIE_API,
+        language: 'ko',
+      },
+    });
+    return res.data;
+  } catch (error) {
+    console.log({ error });
+    return false;
+  }
+}

@@ -15,4 +15,7 @@ export interface IMovieModel {
   video: false;
   vote_average: number;
   vote_count: number;
+  runtime: number;
+  status: string;
+  tagline: string;
 }
