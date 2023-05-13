@@ -5,9 +5,10 @@ import { IPaginationResponse, IMovieModel } from '@/types';
 /**
  * [API] GET 영화 목록 불러오기
  * @param { number } page 페이지 number
+ * @param { string | undefined } url API EndPoint
  */
-export async function getMovies({ page }: { page: number }) {
-  const res = await Axios.get<IPaginationResponse<IMovieModel>>(`/movie/3/discover/movie`, {
+export async function getMovies({ page, url }: { page: number; url?: string }) {
+  const res = await Axios.get<IPaginationResponse<IMovieModel>>(url ? `${url}/3/discover/movie` : `/movie/3/discover/movie`, {
     params: {
       api_key: process.env.NEXT_PUBLIC_MOVIE_API,
       language: 'ko',
@@ -27,6 +28,7 @@ export const useGetMovies = () => {
       const nextPage = lastPage.page + 1;
       return lastPage.results.length !== 0 ? nextPage : undefined;
     },
+    staleTime: 10000,
   });
   const { data } = res;
 
@@ -80,7 +82,6 @@ export async function getSearchMovies({ query, page, url }: { query?: string; pa
 export const useGetSearchMovies = ({ query }: { query?: string }) => {
   const res = useInfiniteQuery(['getSearchMovies', query], ({ pageParam = 1 }) => getSearchMovies({ query, page: pageParam }), {
     getNextPageParam: (lastPage) => {
-      console.log({ lastPage });
       const nextPage = lastPage.page + 1;
       return lastPage.results.length !== 0 ? nextPage : undefined;
     },
