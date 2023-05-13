@@ -1,11 +1,22 @@
 'use client';
-import { useEffect, useState } from 'react';
-import Image from 'next/image';
+import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { useGetMovies } from '@/services';
+import { useGetMovies, useGetSearchMovies } from '@/services';
 import { MovieCard } from '../MovieCard';
-export default function Movies() {
-  const { contents: movies, status, fetchNextPage, isFetchingNextPage, hasNextPage } = useGetMovies();
+
+interface Props {
+  mode: 'default' | 'search';
+  queryValue?: string;
+}
+
+export default function Movies({ mode = 'default', queryValue }: Props) {
+  const {
+    contents: movies,
+    status,
+    fetchNextPage,
+    isFetchingNextPage,
+    hasNextPage,
+  } = mode === 'default' ? useGetMovies() : useGetSearchMovies({ query: queryValue });
 
   const { ref, inView } = useInView();
 
@@ -17,7 +28,6 @@ export default function Movies() {
 
   return (
     <div>
-      <h1>Movies List</h1>
       <div className={'grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[16px]'}>
         {status === 'loading' && !isFetchingNextPage && <h3>로딩중~~</h3>}
         {status === 'error' && !isFetchingNextPage && <h3>영화목록을 불러오지 못하고 있어요 😭😭😭</h3>}
