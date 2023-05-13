@@ -3,8 +3,11 @@
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint", "prettier"],
   "parserOptions": {
-    "project": "./tsconfig.json",
-    "createDefaultProgram": true
+    "ecmaFeatures": {
+      "jsx": true // JSX를 파싱할 수 있습니다.
+    },
+    "ecmaVersion": 12, // Modern ECMAScript를 파싱할 수 있습니다.
+    "sourceType": "module" // import, export를 사용할 수 있습니다.
   },
   "env": {
     "browser": true,
@@ -12,7 +15,7 @@
     "es6": true
   },
   "ignorePatterns": ["node_modules/"],
-  "extends": ["next/core-web-vitals", "plugin:@typescript-eslint/recommended", "plugin:prettier/recommended", "prettier"],
+  "extends": ["next/core-web-vitals", "eslint:recommended", "plugin:react/recommended", "plugin:@typescript-eslint/recommended", "plugin:prettier/recommended"],
   "rules": {
     "react/react-in-jsx-scope": "off",
     "react/jsx-props-no-spreading": 0,
