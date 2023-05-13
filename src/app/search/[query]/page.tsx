@@ -12,9 +12,11 @@ interface Props {
 export default async function Search({ params: { query } }: Props) {
   const queryClient = new QueryClient();
 
+  const searchValue = decodeURI(query);
+
   await queryClient.prefetchInfiniteQuery(
-    ['getSearchMovies', decodeURI(query)],
-    () => getSearchMovies({ query: decodeURI(query), page: 1, url: process.env.NEXT_PUBLIC_API_MOVIE_URL }),
+    ['getSearchMovies', searchValue],
+    () => getSearchMovies({ query: searchValue, page: 1, url: process.env.NEXT_PUBLIC_API_MOVIE_URL }),
     { staleTime: 10000 },
   );
   const dehydratedState = dehydrate(queryClient);
@@ -22,7 +24,7 @@ export default async function Search({ params: { query } }: Props) {
   return (
     <div className={'flex flex-nowrap'}>
       <Hydrate state={dehydratedState}>
-        <Movies mode={'search'} queryValue={decodeURI(query)} />
+        <Movies mode={'search'} queryValue={searchValue} />
       </Hydrate>
     </div>
   );
