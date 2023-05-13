@@ -10,7 +10,7 @@ interface Props {
 export default function MovieCard({ movieItem }: Props) {
   return (
     <li className={'bg-white border-4 border-darkBlue overflow-hidden rounded-lg shadow-lg'}>
-      <Link href={`/movie/${movieItem.id}`}>
+      <Link href={`/movieDetail/${movieItem.id}`}>
         <Image className="w-full" src={`https://image.tmdb.org/t/p/w500${movieItem.poster_path}`} alt={movieItem.title} width={300} height={200} />
         <div className="px-[8px]">
           <p className="font-bold text-center text-black">{movieItem.title}</p>
