@@ -57,13 +57,10 @@ export async function getMoviesDetail({ id }: { id: number }) {
  * [API] GET 영화 검색 목록 불러오기
  * @param { string | undefined} query 검색
  * @param { number } page 페이지
- * @param { string | undefined } url API EndPoint
  */
-export async function getSearchMovies({ query, page, url }: { query?: string; page: number; url?: string }) {
-  const res = await Axios.get<IPaginationResponse<IMovieModel>>(url ? `${url}/3/search/movie` : `/movie/3/search/movie`, {
+export async function getSearchMovies({ query, page }: { query?: string; page: number }) {
+  const res = await Axios.get<IPaginationResponse<IMovieModel>>(`http://localhost:3000/api/proxy/moviesSearch`, {
     params: {
-      api_key: process.env.NEXT_PUBLIC_MOVIE_API,
-      language: 'ko',
       page,
       query,
     },
