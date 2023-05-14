@@ -7,6 +7,7 @@ const nextConfig = {
         hostname: 'image.tmdb.org',
       },
     ],
+    formats: ['image/avif', 'image/webp'],
   },
   async rewrites() {
     return [
