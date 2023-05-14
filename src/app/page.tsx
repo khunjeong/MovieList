@@ -11,8 +11,8 @@ export default async function Home() {
   const dehydratedState = dehydrate(queryClient);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24 overflow-y-auto">
-      <h1>영화 목록</h1>
+    <main className="flex min-h-screen flex-col items-center justify-between p-24 overflow-y-auto gap-4">
+      <h1 className="text-3xl">영화 목록</h1>
       <Hydrate state={dehydratedState}>
         <Movies mode={'default'} />
       </Hydrate>
