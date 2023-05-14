@@ -4,14 +4,11 @@ import { IPaginationResponse, IMovieModel } from '@/types';
 
 /**
  * [API] GET 영화 목록 불러오기
- * @param { number } page 페이지 number
- * @param { string | undefined } url API EndPoint
+ * @param { number } page 페이지
  */
-export async function getMovies({ page, url }: { page: number; url?: string }) {
-  const res = await Axios.get<IPaginationResponse<IMovieModel>>(url ? `${url}/3/discover/movie` : `/movie/3/discover/movie`, {
+export async function getMovies({ page }: { page: number }) {
+  const res = await Axios.get<IPaginationResponse<IMovieModel>>(`http://localhost:3000/api/proxy/movies`, {
     params: {
-      api_key: process.env.NEXT_PUBLIC_MOVIE_API,
-      language: 'ko',
       page,
     },
   });

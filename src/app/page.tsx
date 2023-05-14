@@ -1,13 +1,12 @@
 import { QueryClient, dehydrate } from '@tanstack/react-query';
 import { Movies } from '@/components';
 import { getMovies } from '@/services';
-
 import Hydrate from '@/providers/Hydrate';
 
 export default async function Home() {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchInfiniteQuery(['getMovies'], () => getMovies({ page: 1, url: process.env.NEXT_PUBLIC_API_MOVIE_URL }), { staleTime: 10000 });
+  await queryClient.prefetchInfiniteQuery(['getMovies'], () => getMovies({ page: 1 }), { staleTime: 10000 });
 
   const dehydratedState = dehydrate(queryClient);
 
