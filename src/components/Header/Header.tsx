@@ -17,6 +17,7 @@ export default function Header() {
   const onKeyDownEnter = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key == 'Enter' && searchRef.current) {
       router.push(`/search/${searchRef.current.value}`);
+      setIsSearch(false);
     }
   };
 
@@ -33,7 +34,7 @@ export default function Header() {
       </nav>
       {isSearch && (
         <div className="flex justify-between  items-center absolute p-4 gap-4 w-full bg-white text-black">
-          <input className="outline-none	w-11/12" ref={searchRef} placeholder="영화 검색" onKeyDown={onKeyDownEnter} />
+          <input className="outline-none	w-11/12" ref={searchRef} placeholder="영화 검색(엔터)" onKeyDown={onKeyDownEnter} />
           <button onClick={onSearchBtnClick}>닫기</button>
         </div>
       )}
