@@ -40,10 +40,9 @@ export const useGetMovies = () => {
  */
 export async function getMoviesDetail({ id }: { id: number }) {
   try {
-    const res = await Axios.get<IMovieModel>(`${process.env.NEXT_PUBLIC_API_MOVIE_URL}/3/movie/${id}`, {
+    const res = await Axios.get<IMovieModel>(`http://localhost:3000/api/proxy/movieDetail`, {
       params: {
-        api_key: process.env.NEXT_PUBLIC_MOVIE_API,
-        language: 'ko',
+        id,
       },
     });
     return res.data;
